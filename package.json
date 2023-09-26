@@ -1,0 +1,25 @@
+{
+  "name": "groop",
+  "version": "1.0.0",
+  "description": "An app that helps users organize group events, handling split payments, chat room, location.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node back-end/index.js",
+    "dev": "nodemon back-end/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.8.0",
+    "mongoose": "^7.5.3"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1",
+    "nodemon": "^3.0.1"
+  }
+}
