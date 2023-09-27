@@ -7,6 +7,7 @@ const {
     GraphQLList
 } = require('graphql')
 
+// UserLinked Type
 const UserLinkedType = (types) => new GraphQLObjectType({
     name: 'UserLinked',
     fields: () => ({

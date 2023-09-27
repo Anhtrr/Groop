@@ -12,8 +12,7 @@ const EventType = (types) => new GraphQLObjectType({
     name: 'Event',
     fields: () => ({
         id: { type: GraphQLID },
-        name: { type: GraphQLString },
-        category: { type: GraphQLString },
+        title: { type: GraphQLString },
         description: { type: GraphQLString },
         startDate: { type: GraphQLString },
         startTime: { type: GraphQLString },
@@ -21,7 +20,13 @@ const EventType = (types) => new GraphQLObjectType({
         endTime: { type: GraphQLString },
         location: { type: LocationType },
         status: { type: GraphQLString },
+        public: { type: GraphQLBoolean},
         users: { type: new GraphQLList(types.UserLinkedType) },
+        category: { type: types.CategoryType,
+            resolve(parent, args) {
+                // code to get data from db / other source
+            }
+        },
         payments: { 
             type: new GraphQLList(types.PaymentType),
             resolve(parent, args) {
