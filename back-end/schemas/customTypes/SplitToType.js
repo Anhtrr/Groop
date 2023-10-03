@@ -9,13 +9,14 @@ const {
 } = require('graphql')
 
 // MongoDB Models
-const { User } = require('../models/User')
-const { Payment } = require('../models/Payment')
+const { User } = require('../../models/User')
+const { Payment } = require('../../models/Payment')
 
 // SplitTo Type
 const SplitToType = (types) => new GraphQLObjectType({
     name: 'SplitTo',
     fields: () => ({
+        id: { type: GraphQLID },
         user: { type: types.UserType,
             resolve(parent, args) {
                 return User.findById(parent.userID)

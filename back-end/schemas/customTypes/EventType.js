@@ -3,14 +3,13 @@ const {
     GraphQLID, 
     GraphQLString, 
     GraphQLBoolean,
-    GraphQLFloat,
     GraphQLList
 } = require('graphql')
 
 // MongoDB Models
-const { Category } = require('../models/Category')
-const { Payment } = require('../models/Payment')
-const { Location } = require('../models/Location')
+const { Category } = require('../../models/Category')
+const { Payment } = require('../../models/Payment')
+const { Location } = require('../../models/Location')
 
 // Event Type
 const EventType = (types) => new GraphQLObjectType({
@@ -23,7 +22,7 @@ const EventType = (types) => new GraphQLObjectType({
         startTime: { type: GraphQLString },
         endDate: { type: GraphQLString },
         endTime: { type: GraphQLString },
-        location: { type: LocationType,
+        location: { type: types.LocationType,
             resolve(parent, args) {
                 return Location.findById(parent.locationID)
             }
@@ -44,17 +43,6 @@ const EventType = (types) => new GraphQLObjectType({
         }
     })
 })
-const LocationType = new GraphQLObjectType({
-    name: 'Location',
-    fields: () => ({
-        address: { type: GraphQLString },
-        online: { type: GraphQLBoolean },
-        link: { type: GraphQLString },
-        longitude: { type: GraphQLFloat },
-        latitude: { type: GraphQLFloat }
-    })
-})
-
 
 
 module.exports = EventType

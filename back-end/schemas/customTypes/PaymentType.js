@@ -9,9 +9,9 @@ const {
 } = require('graphql')
 
 // MongoDB Models
-const { Event } = require('../models/Event')
-const { SplitTo } = require('../models/SplitTo')
-const { User } = require('../models/User')
+const { Event } = require('../../models/Event')
+const { SplitTo } = require('../../models/SplitTo')
+const { User } = require('../../models/User')
 
 // Payment Type
 const PaymentType = (types) => new GraphQLObjectType({

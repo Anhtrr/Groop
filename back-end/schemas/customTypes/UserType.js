@@ -9,17 +9,17 @@ const {
 } = require('graphql')
 
 // MongoDB Models
-const { User } = require('../models/User')
-const { Event } = require('../models/Event')
-const { Payment } = require('../models/Payment')
-const { Name } = require('../models/Name')
+const { User } = require('../../models/User')
+const { Event } = require('../../models/Event')
+const { Payment } = require('../../models/Payment')
+const { Name } = require('../../models/Name')
 
 // User Type
 const UserType = (types) => new GraphQLObjectType({
     name: 'User',
     fields: () => ({
         id: { type: GraphQLID },
-        name: { type: NameType,
+        name: { type: types.NameType,
             resolve(parent, args) {
                 return Name.findById(parent.nameID)
             }
@@ -51,14 +51,6 @@ const UserType = (types) => new GraphQLObjectType({
                 return Payment.find({ _id: { $in: parent.paymentsInvolvedID } })
             }
         }
-    })
-})
-const NameType = new GraphQLObjectType({
-    name: 'Name',
-    fields: () => ({
-        first: { type: GraphQLString },
-        last: { type: GraphQLString },
-        full: { type: GraphQLString }
     })
 })
 

@@ -6,7 +6,7 @@ const {
 } = require('graphql')
 
 // MongoDB Models
-const { Event } = require('../models/Event')
+const { Event } = require('../../models/Event')
 
 // Category Type
 const CategoryType = (types) => new GraphQLObjectType({
