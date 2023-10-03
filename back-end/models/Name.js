@@ -4,6 +4,11 @@ const Schema = mongoose.Schema
 
 const NameSchema = new Schema(
     {
+        userID: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+        },
         first: {
             type: String,
             required: true,

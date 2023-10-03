@@ -8,6 +8,11 @@ const {
     GraphQLList
 } = require('graphql')
 
+// MongoDB Models
+const { Event } = require('../models/Event')
+const { SplitTo } = require('../models/SplitTo')
+const { User } = require('../models/User')
+
 // Payment Type
 const PaymentType = (types) => new GraphQLObjectType({
     name: 'Payment',
@@ -21,17 +26,17 @@ const PaymentType = (types) => new GraphQLObjectType({
         time: { type: GraphQLString },
         event: { type: types.EventType,
             resolve(parent, args) {
-                // code to get data from db / other source
+                return Event.findById(parent.eventID)
             }
         },
         paidBy: { type: types.UserType,
             resolve(parent, args) {
-                // code to get data from db / other source
+                return User.findById(parent.paidByUserID)
             }
         },
         splitTo: { type: new GraphQLList(types.SplitToType),
             resolve(parent, args) {
-                // code to get data from db / other source
+                return SplitTo.find({ paymentID: parent.id })
             }
         }
     })

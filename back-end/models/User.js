@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const UserSchema = new Schema(
     {
-        name: {
+        nameID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Name',
             required: true
@@ -47,17 +47,22 @@ const UserSchema = new Schema(
             lowercase: true,
             unique: false
         },
-        friends: [{
+        friendsID: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: false
         }],
-        events: [{
+        eventsID: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Event',
             required: false
         }],
-        payments: [{
+        paymentsID: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Payment',
+            required: false
+        }],
+        paymentsInvolvedID: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Payment',
             required: false

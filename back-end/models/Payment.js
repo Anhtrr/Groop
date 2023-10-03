@@ -42,17 +42,17 @@ const PaymentSchema = new Schema(
             type: Date,
             required: true
         },
-        event: {
+        eventID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Event',
             required: false
         },
-        paidBy: {
+        paidByUserID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true
         },
-        splitTo: [{
+        splitToID: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'SplitTo',
             required: true

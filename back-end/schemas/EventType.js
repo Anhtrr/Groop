@@ -7,6 +7,11 @@ const {
     GraphQLList
 } = require('graphql')
 
+// MongoDB Models
+const { Category } = require('../models/Category')
+const { Payment } = require('../models/Payment')
+const { Location } = require('../models/Location')
+
 // Event Type
 const EventType = (types) => new GraphQLObjectType({
     name: 'Event',
@@ -18,19 +23,23 @@ const EventType = (types) => new GraphQLObjectType({
         startTime: { type: GraphQLString },
         endDate: { type: GraphQLString },
         endTime: { type: GraphQLString },
-        location: { type: LocationType },
+        location: { type: LocationType,
+            resolve(parent, args) {
+                return Location.findById(parent.locationID)
+            }
+        },
         status: { type: GraphQLString },
         public: { type: GraphQLBoolean},
         users: { type: new GraphQLList(types.UserLinkedType) },
         category: { type: types.CategoryType,
             resolve(parent, args) {
-                // code to get data from db / other source
+                return Category.findById(parent.categoryID)
             }
         },
         payments: { 
             type: new GraphQLList(types.PaymentType),
             resolve(parent, args) {
-                // code to get data from db / other source
+                return Payment.find({ eventID: parent.id })
             }
         }
     })

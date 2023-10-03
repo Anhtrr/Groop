@@ -8,13 +8,22 @@ const {
     GraphQLList
 } = require('graphql')
 
+// MongoDB Models
+const { User } = require('../models/User')
+const { Payment } = require('../models/Payment')
+
 // SplitTo Type
 const SplitToType = (types) => new GraphQLObjectType({
     name: 'SplitTo',
     fields: () => ({
         user: { type: types.UserType,
             resolve(parent, args) {
-                // code to get data from db / other source
+                return User.findById(parent.userID)
+            }
+        },
+        payment: {type: types.PaymentType,
+            resolve(parent, args) {
+                return Payment.findById(parent.paymentID)
             }
         },
         amount: { type: GraphQLFloat },

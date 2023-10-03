@@ -43,26 +43,26 @@ const EventSchema = new Schema(
             type: String,
             required: true,
             trim: true,
-            enum: ['tentative', 'confirmed', 'cancelled', 'ongoing', 'completed'],
+            lowercase: true,
             default: 'tentative'
         },
-        category: {
+        categoryID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Category',
             required: true
         },
-        location: {
+        locationID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Location',
             required: true
         },
-        users: [{
+        usersLinkedID: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'UserLinkedType'
+            ref: 'UserLinked'
         }],
-        payments: [{
+        paymentsID: [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'PaymentType',
+            ref: 'Payment',
             required: false
         }]
     },

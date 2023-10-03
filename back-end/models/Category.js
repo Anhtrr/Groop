@@ -26,7 +26,7 @@ const CategorySchema = new Schema(
             lowercase: true,
             unique: true
         },
-        events: [{
+        eventsID: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Event',
             required: false

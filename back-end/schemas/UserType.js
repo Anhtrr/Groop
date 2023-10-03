@@ -8,12 +8,22 @@ const {
     GraphQLList
 } = require('graphql')
 
+// MongoDB Models
+const { User } = require('../models/User')
+const { Event } = require('../models/Event')
+const { Payment } = require('../models/Payment')
+const { Name } = require('../models/Name')
+
 // User Type
 const UserType = (types) => new GraphQLObjectType({
     name: 'User',
     fields: () => ({
         id: { type: GraphQLID },
-        name: { type: NameType },
+        name: { type: NameType,
+            resolve(parent, args) {
+                return Name.findById(parent.nameID)
+            }
+        },
         username: { type: GraphQLString },
         email: { type: GraphQLString },
         phone: { type: GraphQLString },
@@ -22,18 +32,23 @@ const UserType = (types) => new GraphQLObjectType({
         friends: { 
             type: new GraphQLList(types.UserType),
             resolve(parent, args) {
-                // code to get data from db / other source
+                return User.find({ _id: { $in: parent.friendsID } })
             } 
         },
         events: { 
             type: new GraphQLList(types.EventType),
             resolve(parent, args) {
-                // code to get data from db / other source
+                return Event.find({ _id: { $in: parent.eventsID } })
             }
         },
         payments: { type: new GraphQLList(types.PaymentType),
             resolve(parent, args) {
-                // code to get data from db / other source
+                return Payment.find({ paidByUserID: parent.id })
+            }
+        },
+        paymentsInvolved: { type: new GraphQLList(types.PaymentType),
+            resolve(parent, args) {
+                return Payment.find({ _id: { $in: parent.paymentsInvolvedID } })
             }
         }
     })

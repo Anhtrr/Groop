@@ -5,6 +5,9 @@ const {
     GraphQLList
 } = require('graphql')
 
+// MongoDB Models
+const { Event } = require('../models/Event')
+
 // Category Type
 const CategoryType = (types) => new GraphQLObjectType({
     name: 'Category',
@@ -16,7 +19,7 @@ const CategoryType = (types) => new GraphQLObjectType({
         events: { 
             type: new GraphQLList(types.EventType),
             resolve(parent, args) {
-                // code to get data from db / other source
+                return Event.find({ categoryID: parent.id })
             }
         }        
     })
